@@ -9,10 +9,10 @@
 <body>
   <!-- Hostile Navigation: icons deliberately do the wrong thing (js/hostile-nav.js) -->
   <nav class="nav" id="nav">
+    <button class="nav__icon nav__back" data-action="back" title="Back">←</button>
     <button class="nav__icon" data-action="terms" title="Home">🏠</button>
     <button class="nav__icon" data-action="reset" title="Help">❓</button>
     <button class="nav__icon" data-action="chatbot" title="Settings">⚙️</button>
-    <button class="nav__icon nav__back" data-action="back" title="Back">←</button>
   </nav>
 
   <main class="page">
@@ -35,7 +35,7 @@
       <label class="field">
         <span>Phone number</span>
         <input type="range" name="phone" id="phone" min="0" max="9999999999" step="1" value="0">
-        <output id="phone-output" for="phone">0</output>
+        <output id="phone-output" for="phone">(000) 000-0000</output>
       </label>
 
       <label class="field">
@@ -48,6 +48,7 @@
         <div class="globe" id="globe"></div>
         <input type="hidden" name="country" id="country">
       </div>
+      <output class="fine" id="country-output"></output>
 
       <!-- Terms & Conditions: horizontal scroll, reversed wheel (js/visual-assault.js) -->
       <h2>Terms &amp; Conditions</h2>
@@ -59,16 +60,21 @@
       <button type="button" class="submit" id="submit">Submit</button>
     </form>
 
-    <!-- Lying Progress Bar + prank video (js/progress-bar.js) -->
-    <section class="progress" id="progress" hidden>
-      <div class="progress__bar"><div class="progress__fill" id="progress-fill"></div></div>
-      <p class="progress__status" id="progress-status"></p>
-      <video class="prank" id="prank" src="video/prank.mp4" playsinline preload="auto" hidden></video>
-    </section>
-
     <!-- Lots of empty scroll space before the escape hatch -->
     <div class="void" aria-hidden="true"></div>
   </main>
+
+  <!-- Lying Progress Bar (js/progress-bar.js) -->
+  <section class="progress" id="progress" hidden>
+    <div class="progress__bar"><div class="progress__fill" id="progress-fill"></div></div>
+    <p class="progress__status" id="progress-status"></p>
+  </section>
+
+  <!-- Prank video overlay; src comes from config.prankVideoSrc -->
+  <div class="prank" id="prank-overlay" hidden>
+    <video id="prank" playsinline controls preload="auto"></video>
+    <button class="prank__close" id="prank-close" aria-label="Close">×</button>
+  </div>
 
   <!-- The only real way to win (js/escape-hatch.js) -->
   <button class="escape-hatch" id="escape-hatch" aria-label="."></button>

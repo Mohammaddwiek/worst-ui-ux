@@ -1,7 +1,18 @@
 // Toasts: successful actions show red, error-styled notifications.
 WorstUI.modules.toasts = {
-  init() {},
+  durationMs: 3500,
+
+  init() {
+    this.container = document.getElementById("toasts");
+  },
+
   success(message) {
-    // TODO(build): render a red "error" toast for a success message.
+    const toast = document.createElement("div");
+    toast.className = "toast";
+    const title = document.createElement("strong");
+    title.textContent = "⚠ CRITICAL ERROR";
+    toast.append(title, message);
+    this.container.append(toast);
+    setTimeout(() => toast.remove(), this.durationMs);
   },
 };

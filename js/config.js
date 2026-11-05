@@ -4,11 +4,14 @@ window.WorstUI = {
     fleeRadius: 80,               // px — Cowardly Submit Button trigger distance
     idleClearMs: 4000,            // Amnesiac Form: clear after this much idle time
     birthdayDays: 36500,          // Birthday dropdown length
-    phoneMax: 9999999999,
     chatbotIntervalMs: 20000,
+    globeSpinMs: 4000,            // must match the globe-spin animation in styles.css
     prankVideoSrc: "video/prank.mp4",
     // Escape-hatch confetti tries these in order; the first one that loads wins.
     logoCandidates: ["logo.png", "logo.svg"],
   },
   modules: {},
+  won: false,
+  // Panic mode (Shift + Esc) switches the chaos off for demos.
+  isPanic: () => document.body.classList.contains("panic"),
 };

@@ -1,73 +1,312 @@
-/* OmniCorp Synergy Portal™ — styles.
-   Base structure only; the full visual assault lands in the next build step. */
+/* OmniCorp Synergy Portal™ — styles. Every bad decision here is intentional. */
 
 :root {
   --neon-1: #00ff00;
   --neon-2: #ff00ff;
   --neon-3: #00ffff;
   --neon-4: #ffff00;
-  --body-text: #d8d8d8;      /* light gray on white: intentional */
-  --body-size: 6px;          /* microscopic: intentional */
+  --body-text: #d8d8d8;      /* light gray on white */
+  --body-size: 6px;          /* microscopic */
   --heading-size: 72px;
   --heading-font: "Comic Sans MS", "Comic Sans", "Papyrus", cursive;
+  --toast-red: #cc0000;
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 
 body {
+  position: relative;        /* anchors the escape hatch to the very bottom of the document */
+  min-height: 100vh;
   margin: 0;
-  background: #fff;
+  overflow-x: hidden;
   color: var(--body-text);
-  font-size: var(--body-size);
-  font-family: Arial, sans-serif;
+  font: var(--body-size)/1.4 Arial, sans-serif;
+  background-color: var(--neon-1);
+  animation: neon-cycle 24s linear infinite;   /* slow on purpose: no flashing */
 }
+
+@keyframes neon-cycle {
+  0%, 100% { background-color: var(--neon-1); }
+  25%      { background-color: var(--neon-2); }
+  50%      { background-color: var(--neon-3); }
+  75%      { background-color: var(--neon-4); }
+}
+
+/* Native cursor replaced by the spinning .fake-cursor */
+body:not(.panic), body:not(.panic) * { cursor: none !important; }
 
 h1, h2 {
+  margin: 0.2em 0;
   font-family: var(--heading-font);
   font-size: var(--heading-size);
-  margin: 0.2em 0;
+  line-height: 1;
+  color: var(--neon-2);
+  text-shadow: 3px 3px 0 var(--neon-1);
+  overflow-wrap: anywhere;
 }
 
-.page { padding: 16px; }
+/* ---------- Nav ---------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  gap: 8px;
+  padding: 4px 16px;
+  background: #000;
+}
+.nav__icon {
+  padding: 4px;
+  border: 0;
+  background: none;
+  font-size: 18px;
+}
 
-.nav { display: flex; gap: 8px; padding: 8px; }
+/* ---------- Page card ---------- */
+.page {
+  width: min(640px, calc(100% - 32px));
+  margin: 24px auto 0;
+  padding: 16px;
+  background: #fff;
+}
+.fine { color: var(--body-text); }
 
-.form { display: grid; gap: 12px; max-width: 600px; }
+.form { display: grid; gap: 16px; }
 .field { display: grid; gap: 4px; }
+.field input:not([type="range"]),
+.field select {
+  width: 100%;
+  padding: 2px;
+  border: 1px solid #eee;
+  color: #ccc;
+  font: inherit;
+}
+.field input[type="range"] { width: 100%; }
 
-.terms { overflow-x: auto; overflow-y: hidden; white-space: nowrap; }
+.password-rules { margin: 0; padding: 0; list-style: none; }
+.password-rules .bad { color: #f6a5a5; }
+.password-rules .ok  { color: #a9d6a9; }
 
-.submit { position: relative; }
+/* ---------- Globe ---------- */
+.globe-wrap { position: relative; height: 170px; }
+.globe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #66ccff, #003366 70%);
+  box-shadow: 0 0 24px var(--neon-3);
+  animation: globe-drift 7s ease-in-out infinite alternate;
+}
+/* Continents: a 2x-wide tile scrolled sideways reads as rotation */
+.globe::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse 9% 22% at 10% 35%, #33cc33 95%, transparent 100%),
+    radial-gradient(ellipse 6% 14% at 14% 70%, #33cc33 95%, transparent 100%),
+    radial-gradient(ellipse 12% 16% at 38% 30%, #2db82d 95%, transparent 100%),
+    radial-gradient(ellipse 7% 20% at 42% 62%, #33cc33 95%, transparent 100%),
+    radial-gradient(ellipse 14% 18% at 68% 32%, #2db82d 95%, transparent 100%),
+    radial-gradient(ellipse 6% 8% at 82% 74%, #33cc33 95%, transparent 100%),
+    radial-gradient(ellipse 20% 6% at 50% 96%, #ffffff 95%, transparent 100%);
+  background-size: 240px 120px;
+  background-repeat: repeat-x;
+  animation: globe-spin 4s linear infinite;
+}
+/* Sphere shading */
+.globe::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.4), transparent 35%, rgba(0, 0, 0, 0.55) 80%);
+}
+@keyframes globe-spin { to { background-position: -240px 0; } }
+@keyframes globe-drift {
+  0%   { left: 0;                  top: 0; }
+  50%  { left: calc(100% - 120px); top: 40px; }
+  100% { left: 30%;                top: 10px; }
+}
 
-.globe { width: 120px; height: 120px; border-radius: 50%; }
+/* ---------- Terms ---------- */
+.terms {
+  width: 100%;
+  height: 140px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border: 1px dashed #eee;
+}
+.terms__track { display: flex; gap: 24px; width: max-content; padding: 8px; }
+.terms__col { width: 220px; }
 
+/* ---------- Submit ---------- */
+.submit {
+  position: relative;
+  z-index: 40;
+  justify-self: start;
+  padding: 10px 24px;
+  border: 3px outset var(--neon-1);
+  background: var(--neon-2);
+  color: var(--neon-4);
+  font: 16px var(--heading-font);
+  transition: transform 0.12s ease-out;
+}
+
+/* ---------- Escape hatch ---------- */
 .void { height: 600vh; }
-
 .escape-hatch {
   position: absolute;
-  right: 2px;
-  bottom: 2px;
+  right: 3px;
+  bottom: 3px;
   width: 4px;
   height: 4px;
   padding: 0;
   border: 0;
-  background: #fefefe;
-  cursor: pointer;
+  background: rgba(0, 0, 0, 0.15);
 }
 
+/* ---------- Progress ---------- */
+.progress {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  z-index: 800;
+  width: min(480px, calc(100% - 32px));
+  padding: 12px;
+  transform: translateX(-50%);
+  border: 2px solid #000;
+  background: #fff;
+  box-shadow: 6px 6px 0 var(--neon-2);
+}
+.progress__bar { height: 18px; background: #eee; }
+.progress__fill {
+  width: 0;
+  height: 100%;
+  background: repeating-linear-gradient(45deg, var(--neon-1) 0 10px, var(--neon-3) 10px 20px);
+}
+.progress__status { margin: 6px 0 0; color: #999; font-size: 8px; }
+
+/* ---------- Prank video ---------- */
+.prank {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: grid;
+  place-items: center;
+  background: #000;
+}
+.prank video { max-width: 100%; max-height: 100%; }
+.prank__close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 0 3px;
+  border: 0;
+  background: #222;
+  color: #555;
+  font-size: 8px;
+}
+
+/* ---------- Toasts (success styled as errors) ---------- */
+.toasts {
+  position: fixed;
+  top: 48px;
+  right: 16px;
+  z-index: 900;
+  display: grid;
+  gap: 8px;
+  width: min(320px, calc(100% - 32px));
+}
+.toast {
+  padding: 8px 12px;
+  border: 2px solid #600;
+  background: var(--toast-red);
+  color: #fff;
+  font: 12px/1.3 monospace;
+  box-shadow: 4px 4px 0 #000;
+  animation: toast-in 0.2s ease-out;
+}
+.toast strong { display: block; }
+@keyframes toast-in { from { transform: translateX(110%); } }
+
+/* ---------- Chatbot ---------- */
+.chatbot {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 900;
+  width: min(260px, calc(100% - 32px));
+  padding: 10px;
+  border: 3px solid var(--neon-2);
+  background: #fff;
+  color: #333;
+  font: 12px/1.3 var(--heading-font);
+}
+.chatbot__title { margin: 0 0 6px; font-weight: bold; }
+.chatbot__msg { margin: 0 0 8px; }
+.chatbot__actions { display: flex; gap: 6px; }
+.chatbot__actions button { font: inherit; }
+.chatbot__close {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  padding: 0 2px;
+  border: 0;
+  background: none;
+  font-size: 6px;
+}
+
+/* ---------- Win ---------- */
 .win {
   position: fixed;
   inset: 0;
+  z-index: 1000;
   display: grid;
   place-items: center;
-  z-index: 1000;
+  background: rgba(255, 255, 255, 0.85);
 }
-.win[hidden] { display: none; }
+.win__message {
+  margin: 0;
+  padding: 16px;
+  color: var(--neon-2);
+  font: clamp(48px, 12vw, 180px)/1 var(--heading-font);
+  text-align: center;
+  text-shadow: 4px 4px 0 var(--neon-1), 8px 8px 0 #000;
+}
+.confetti { position: fixed; inset: 0; z-index: 1001; pointer-events: none; }
 
-.confetti { position: fixed; inset: 0; pointer-events: none; z-index: 1001; }
+/* ---------- Fake spinning cursor ---------- */
+.fake-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  width: 24px;
+  height: 24px;
+  margin: -12px 0 0 -12px;
+  pointer-events: none;
+  opacity: 0;
+}
+.fake-cursor.is-active { opacity: 1; }
+.fake-cursor::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 4px solid var(--neon-2);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (hover: none) { .fake-cursor { display: none; } }
 
-.toasts { position: fixed; top: 16px; right: 16px; z-index: 900; }
-.chatbot { position: fixed; bottom: 16px; right: 16px; z-index: 900; }
-
-/* Panic mode (Shift + Esc, see js/main.js): disables all chaos for demos. */
+/* ---------- Panic mode (Shift + Esc): disables the chaos for demos ---------- */
+body.panic { animation: none; background-color: #fff; }
 body.panic * { animation: none !important; transition: none !important; }
+body.panic .fake-cursor { display: none; }
