@@ -6,9 +6,9 @@ window.WorstUI = {
     birthdayDays: 36500,          // Birthday dropdown length
     chatbotIntervalMs: 20000,
     globeSpinMs: 4000,            // must match the globe-spin animation in styles.css
-    prankVideoSrc: "video/prank.mp4",
+    prankVideoSrc: "video/video.mp4",
     // Escape-hatch confetti tries these in order; the first one that loads wins.
-    logoCandidates: ["logo.png", "logo.svg"],
+    logoCandidates: ["logo/logo.jpeg", "logo.png", "logo.svg"],
   },
   modules: {},
   won: false,

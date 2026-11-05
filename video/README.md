@@ -1,5 +1,5 @@
 # video/
 
-Drop the prank video here as **`prank.mp4`**. The lying progress bar autoplays it once it ticks back up to 99%.
+The prank video lives here as **`video.mp4`**. It plays when the lying progress bar ticks back up to 99%, and when someone clicks "I Accept the Terms".
 
 The path is set in `js/config.js` (`prankVideoSrc`).

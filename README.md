@@ -8,8 +8,10 @@ Open `index.html` in a browser. Serving it locally (`npx serve .`) also works.
 
 ## Assets
 
-- `video/prank.mp4`: the prank video the progress bar autoplays. Add it yourself.
-- `logo.png` or `logo.svg` in the repo root: the club logo that falls with the confetti. `logo.png` is tried first. A placeholder `logo.svg` is included.
+- `video/video.mp4`: the prank video. It plays at the end of the progress bar and when you click "I Accept the Terms".
+- `logo/logo.jpeg`: the club logo that falls with the confetti. If it's missing, `logo.png` and then the placeholder `logo.svg` in the root are used.
+
+Both paths are set in `js/config.js`.
 
 ## Panic key
 

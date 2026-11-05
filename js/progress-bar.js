@@ -79,7 +79,7 @@ WorstUI.modules.progressBar = {
 
   playPrank() {
     if (this.videoMissing) {
-      const msg = "Prank video not found. Add it at video/prank.mp4.";
+      const msg = "Prank video not found. Add it at video/video.mp4.";
       if (!this.running) return WorstUI.modules.toasts.success(msg);
       this.status.textContent = msg;
       setTimeout(() => this.finish(), 3000);
