@@ -1,5 +1,6 @@
 // Lying Progress Bar: races to 99%, drops to 12% ("Estimated time: 3 business years"),
 // crawls back to 99%, then autoplays the prank video from config.prankVideoSrc.
+// playPrank() is also used by the "I Accept the Terms" button.
 WorstUI.modules.progressBar = {
   running: false,
   value: 0,
@@ -78,7 +79,9 @@ WorstUI.modules.progressBar = {
 
   playPrank() {
     if (this.videoMissing) {
-      this.status.textContent = "Prank video not found. Add it at video/prank.mp4.";
+      const msg = "Prank video not found. Add it at video/prank.mp4.";
+      if (!this.running) return WorstUI.modules.toasts.success(msg);
+      this.status.textContent = msg;
       setTimeout(() => this.finish(), 3000);
       return;
     }

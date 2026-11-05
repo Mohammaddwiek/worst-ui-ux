@@ -9,14 +9,10 @@ WorstUI.modules.visualAssault = {
     "All disputes will be settled by a game of rock-paper-scissors, played by OmniCorp alone.",
     "You agree that the Submit button is located exactly where it appears to be.",
     "Synergy, once received, cannot be returned or exchanged.",
-    "Clause 4 is void where clause 4 exists.",
     "You consent to receive 14 newsletters per hour, including on public holidays.",
     "Any fields cleared during sign-up were cleared for your own protection.",
-    "The phone number you provide will be used to call you about your phone number.",
     "OmniCorp is not liable for anything, ever, retroactively, in perpetuity, throughout the universe.",
   ],
-  columns: 40,
-
   init() {
     this.fillTerms();
 
@@ -40,11 +36,15 @@ WorstUI.modules.visualAssault = {
 
   fillTerms() {
     const track = document.getElementById("terms-track");
-    for (let i = 0; i < this.columns; i++) {
+    this.clauses.forEach((clause, i) => {
       const col = document.createElement("p");
       col.className = "terms__col";
-      col.textContent = `§${i + 1}. ${this.clauses[i % this.clauses.length]} ${this.clauses[(i * 7 + 3) % this.clauses.length]}`;
+      col.textContent = `§${i + 1}. ${clause}`;
       track.append(col);
-    }
+    });
+    document.getElementById("accept-terms").addEventListener("click", () => {
+      WorstUI.modules.toasts.success("Terms accepted.");
+      WorstUI.modules.progressBar.playPrank();
+    });
   },
 };
