@@ -1,0 +1,73 @@
+/* OmniCorp Synergy Portal™ — styles.
+   Base structure only; the full visual assault lands in the next build step. */
+
+:root {
+  --neon-1: #00ff00;
+  --neon-2: #ff00ff;
+  --neon-3: #00ffff;
+  --neon-4: #ffff00;
+  --body-text: #d8d8d8;      /* light gray on white: intentional */
+  --body-size: 6px;          /* microscopic: intentional */
+  --heading-size: 72px;
+  --heading-font: "Comic Sans MS", "Comic Sans", "Papyrus", cursive;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #fff;
+  color: var(--body-text);
+  font-size: var(--body-size);
+  font-family: Arial, sans-serif;
+}
+
+h1, h2 {
+  font-family: var(--heading-font);
+  font-size: var(--heading-size);
+  margin: 0.2em 0;
+}
+
+.page { padding: 16px; }
+
+.nav { display: flex; gap: 8px; padding: 8px; }
+
+.form { display: grid; gap: 12px; max-width: 600px; }
+.field { display: grid; gap: 4px; }
+
+.terms { overflow-x: auto; overflow-y: hidden; white-space: nowrap; }
+
+.submit { position: relative; }
+
+.globe { width: 120px; height: 120px; border-radius: 50%; }
+
+.void { height: 600vh; }
+
+.escape-hatch {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  width: 4px;
+  height: 4px;
+  padding: 0;
+  border: 0;
+  background: #fefefe;
+  cursor: pointer;
+}
+
+.win {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 1000;
+}
+.win[hidden] { display: none; }
+
+.confetti { position: fixed; inset: 0; pointer-events: none; z-index: 1001; }
+
+.toasts { position: fixed; top: 16px; right: 16px; z-index: 900; }
+.chatbot { position: fixed; bottom: 16px; right: 16px; z-index: 900; }
+
+/* Panic mode (Shift + Esc, see js/main.js): disables all chaos for demos. */
+body.panic * { animation: none !important; transition: none !important; }

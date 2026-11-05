@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Placeholder club logo. Replace with the real logo.png or logo.svg in the repo root. -->
+  <circle cx="32" cy="32" r="30" fill="#ff00ff" stroke="#00ff00" stroke-width="4"/>
+  <text x="32" y="40" text-anchor="middle" font-family="Comic Sans MS, cursive" font-size="22" fill="#ffff00">LOGO</text>
+</svg>

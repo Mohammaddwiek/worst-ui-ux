@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OmniCorp Synergy Portal™ — Sign Up</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Hostile Navigation: icons deliberately do the wrong thing (js/hostile-nav.js) -->
+  <nav class="nav" id="nav">
+    <button class="nav__icon" data-action="terms" title="Home">🏠</button>
+    <button class="nav__icon" data-action="reset" title="Help">❓</button>
+    <button class="nav__icon" data-action="chatbot" title="Settings">⚙️</button>
+    <button class="nav__icon nav__back" data-action="back" title="Back">←</button>
+  </nav>
+
+  <main class="page">
+    <h1>Sign Up For Synergy</h1>
+    <p class="fine">Please complete all fields. Fields may clear themselves for your security.</p>
+
+    <!-- Amnesiac Form (js/amnesiac-form.js, js/password-rules.js) -->
+    <form class="form" id="signup" autocomplete="off" novalidate>
+      <label class="field">
+        <span>Email</span>
+        <input type="email" name="email" id="email" class="amnesiac">
+      </label>
+
+      <label class="field">
+        <span>Password</span>
+        <input type="password" name="password" id="password" class="amnesiac">
+        <ul class="password-rules" id="password-rules" aria-live="polite"></ul>
+      </label>
+
+      <label class="field">
+        <span>Phone number</span>
+        <input type="range" name="phone" id="phone" min="0" max="9999999999" step="1" value="0">
+        <output id="phone-output" for="phone">0</output>
+      </label>
+
+      <label class="field">
+        <span>Birthday</span>
+        <select name="birthday" id="birthday"></select>
+      </label>
+
+      <!-- Country Globe: deliberately unlabelled (js/globe.js) -->
+      <div class="globe-wrap" id="globe-wrap">
+        <div class="globe" id="globe"></div>
+        <input type="hidden" name="country" id="country">
+      </div>
+
+      <!-- Terms & Conditions: horizontal scroll, reversed wheel (js/visual-assault.js) -->
+      <h2>Terms &amp; Conditions</h2>
+      <div class="terms" id="terms">
+        <div class="terms__track" id="terms-track"></div>
+      </div>
+
+      <!-- Cowardly Submit Button (js/cowardly-button.js) -->
+      <button type="button" class="submit" id="submit">Submit</button>
+    </form>
+
+    <!-- Lying Progress Bar + prank video (js/progress-bar.js) -->
+    <section class="progress" id="progress" hidden>
+      <div class="progress__bar"><div class="progress__fill" id="progress-fill"></div></div>
+      <p class="progress__status" id="progress-status"></p>
+      <video class="prank" id="prank" src="video/prank.mp4" playsinline preload="auto" hidden></video>
+    </section>
+
+    <!-- Lots of empty scroll space before the escape hatch -->
+    <div class="void" aria-hidden="true"></div>
+  </main>
+
+  <!-- The only real way to win (js/escape-hatch.js) -->
+  <button class="escape-hatch" id="escape-hatch" aria-label="."></button>
+
+  <!-- Win screen + confetti canvas (js/confetti.js) -->
+  <div class="win" id="win" hidden>
+    <p class="win__message">You've entered successfully!</p>
+  </div>
+  <canvas class="confetti" id="confetti" hidden></canvas>
+
+  <!-- Overlays -->
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+  <div class="chatbot" id="chatbot" hidden></div>
+
+  <!-- Classic scripts (not ES modules) so the page works when opened via file:// -->
+  <script src="js/config.js"></script>
+  <script src="js/toasts.js"></script>
+  <script src="js/cowardly-button.js"></script>
+  <script src="js/amnesiac-form.js"></script>
+  <script src="js/password-rules.js"></script>
+  <script src="js/progress-bar.js"></script>
+  <script src="js/visual-assault.js"></script>
+  <script src="js/hostile-nav.js"></script>
+  <script src="js/chatbot.js"></script>
+  <script src="js/globe.js"></script>
+  <script src="js/confetti.js"></script>
+  <script src="js/escape-hatch.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
